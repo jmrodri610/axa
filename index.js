@@ -17,7 +17,7 @@ api.post('/login', async (req, res)=> {
         const id = await authenticateUser(username, password)
         const token = jwt.sign({ sub: id }, SECRET, { expiresIn: TOKEN_EXP })
 
-        res.json({ token })
+        res.status(200).json({ token, type: 'bearer', expires_in: TOKEN_EXP })
         
     } catch ({message}) {
         return res.status(401).json(message)

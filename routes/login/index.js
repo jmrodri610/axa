@@ -8,7 +8,7 @@ const jsonBodyParser = bodyParser.json()
 
 const router = Router()
 
-router.post('/login', jsonBodyParser, async (req, res) => {
+router.post('', jsonBodyParser, async (req, res) => {
     const { username, password } = req.body;
     try {
 

@@ -13,7 +13,7 @@ const api = express();
 api.use(bodyParser.json());
 
 api.use('/login', login)
-// api.use('/clients', clients)
+api.use('/clients', clients)
 // api.use('/policies', policies)
 
 api.listen(PORT, () => console.log(`${name} ${version} up and running on port ${PORT}`));

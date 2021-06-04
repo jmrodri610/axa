@@ -1,8 +1,7 @@
-const { env: { API_URL } } = process;
-const call = require('../../utils/call');
+const { API_URL } = process.env;
+const call = require('../utils/call');
 const atob = require('atob');
-
-const validate = require('../../utils/validate');
+const validate = require('../utils/validate');
 
 module.exports = function authenticateUser (username, password) {
 
@@ -21,7 +20,6 @@ module.exports = function authenticateUser (username, password) {
             },
         })
         
-        debugger;
         const { token, error } = response;
 
         if(error) throw new Error(error)

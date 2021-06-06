@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = tokenVault = {
     _token: null,
-    getMasterAPIToken: getMasterAPIToken,
     getToken: async () => {
         const isTokenExpired = ()=> {
             const {exp: tokenExpirationDate} = jwt.decode(this._token)
@@ -28,7 +27,7 @@ module.exports = tokenVault = {
             const { token, error } = response;
 
             if (error) throw new Error(error)
-            
+
             return token
         }
 

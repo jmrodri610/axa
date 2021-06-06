@@ -7,6 +7,24 @@ const { retrieveClients, retrievePolicies, searchClientInfo } = require('../../l
 const router = Router()
 
 router.get('', tokenVerifier, async (req, res) => {
+    const { query: { limit = 10, name }, id } = req
+    try {
+        const clients = await retrieveClients()
+        try {
+            const policies = await retrievePolicies()
+
+            const result = searchClientInfo(id, clients, policies, limit, name)
+
+            res.status(200).json(result)
+        } catch ({message}) {
+            return res.status(401).json(message)
+        }
+    } catch ({ message }) {
+        return res.status(401).json(message)
+    }
+})
+
+router.get('/:id', tokenVerifier, async (req, res) => {
     const { id } = req;
     try {
         const clients = await retrieveClients()

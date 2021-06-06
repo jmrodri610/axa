@@ -11,7 +11,7 @@ module.exports = searchClientInfo = (id, clients, policies, limit, name) => {
 
     if (user.role === 'admin') {
         if (name) {
-            let clientFilteredByName = clients.filter(client => client.name === name || client.name.includes(name))
+            let clientFilteredByName = clients.filter(client => client.name.includes(name))
             if (clientFilteredByName.length) {
                 clientFilteredByName = clientFilteredByName.map(item => {
                     let clientPolicies = [];

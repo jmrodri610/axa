@@ -1,10 +1,6 @@
 const validate = require('../utils/validate');
-const { REGULAR_USER_ID, ADMIN_USER_ID } = process.env;
 
 module.exports = searchClientInfo = (id, clients, policies, limit, name) => {
-
-    !id && (id = REGULAR_USER_ID)
-
     validate.string(id, 'id');
     validate.array(clients, 'clients');
     validate.array(policies, 'policies');

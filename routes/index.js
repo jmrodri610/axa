@@ -1,4 +1,5 @@
 module.exports = {
     login: require('./login'),
-    clients: require('./clients')
+    clients: require('./clients'),
+    policies: require('./policies')
 }

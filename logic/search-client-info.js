@@ -1,6 +1,6 @@
 const validate = require('../utils/validate');
 
-module.exports = searchClientInfo = (id, clients, policies, limit, name) => {
+module.exports = searchClientInfo = (id, clients, policies, limit=10, name) => {
     validate.string(id, 'id');
     validate.array(clients, 'clients');
     validate.array(policies, 'policies');
@@ -61,7 +61,7 @@ module.exports = searchClientInfo = (id, clients, policies, limit, name) => {
 
         user.policies = _policies;
 
-        return user
+        return [user]
     }
 
 }

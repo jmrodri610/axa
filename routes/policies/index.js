@@ -7,18 +7,15 @@ const { retrieveClients, retrievePolicies, searchPolicies, searchPoliciesById } 
 const router = Router()
 
 router.get('', tokenVerifier, async (req, res) => {
-    const { query: { limit = 10 }, id } = req
+    const { query: { limit }, id } = req
     try {
         const clients = await retrieveClients()
-        try {
-            const policies = await retrievePolicies()
 
-            const result = searchPolicies(id, clients, policies, limit)
+        const policies = await retrievePolicies()
 
-            res.status(200).json(result)
-        } catch ({ message }) {
-            return res.status(401).json(message)
-        }
+        const result = searchPolicies(id, clients, policies, limit)
+
+        res.status(200).json(result)
     } catch ({ message }) {
         return res.status(401).json(message)
     }
@@ -28,15 +25,13 @@ router.get('/:id', tokenVerifier, async (req, res) => {
     const { id, params: { id: queryId } } = req;
     try {
         const clients = await retrieveClients()
-        try {
-            const policies = await retrievePolicies()
 
-            const result = searchPoliciesById(id, queryId, clients, policies)
+        const policies = await retrievePolicies()
 
-            res.status(200).json(result)
-        } catch ({ message }) {
-            return res.status(401).json(message)
-        }
+        const result = searchPoliciesById(id, queryId, clients, policies)
+
+        res.status(200).json(result)
+
     } catch ({ message }) {
         return res.status(401).json(message)
     }

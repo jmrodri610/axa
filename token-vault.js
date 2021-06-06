@@ -1,5 +1,6 @@
-const call = require('./utils/call');
+require('dotenv').config()
 const { API_URL, MAIN_USERNAME, MAIN_PASSWORD } = process.env
+const call = require('./utils/call');
 const jwt = require('jsonwebtoken');
 
 

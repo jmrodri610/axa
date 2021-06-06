@@ -17,8 +17,8 @@ router.post('', jsonBodyParser, async (req, res) => {
 
         res.status(200).json({ token, type: 'bearer', expires_in: TOKEN_EXP })
 
-    } catch ({ message }) {
-        return res.status(401).json(message)
+    } catch (error) {
+        return res.status(401).json({error: error.message})
     }
 })
 

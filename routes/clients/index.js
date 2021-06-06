@@ -7,54 +7,48 @@ const { retrieveClients, retrievePolicies, searchClientInfo, searchClientById, s
 const router = Router()
 
 router.get('', tokenVerifier, async (req, res) => {
-    const { query: { limit = 10, name }, id } = req
+    const { query: { limit, name }, id } = req
     try {
         const clients = await retrieveClients()
-        try {
-            const policies = await retrievePolicies()
 
-            const result = searchClientInfo(id, clients, policies, limit, name)
+        const policies = await retrievePolicies()
 
-            res.status(200).json(result)
-        } catch ({message}) {
-            return res.status(401).json(message)
-        }
+        const result = searchClientInfo(id, clients, policies, limit, name)
+
+        res.status(200).send(result)
+
     } catch ({ message }) {
         return res.status(401).json(message)
     }
 })
 
 router.get('/:id', tokenVerifier, async (req, res) => {
-    const { id, params: { id: queryId} } = req;
+    const { id, params: { id: queryId } } = req;
     try {
         const clients = await retrieveClients()
-        try {
-            const policies = await retrievePolicies()
 
-            const result = searchClientById(id, queryId, clients, policies)
+        const policies = await retrievePolicies()
 
-            res.status(200).json(result)
-        } catch ({message}) {
-            return res.status(401).json(message)
-        }
+        const result = searchClientById(id, queryId, clients, policies)
+
+        res.status(200).json(result)
+
     } catch ({ message }) {
         return res.status(401).json(message)
     }
 })
 
 router.get('/:id/policies', tokenVerifier, async (req, res) => {
-    const { id , params: { id: queryId} } = req;
+    const { id, params: { id: queryId } } = req;
     try {
         const clients = await retrieveClients()
-        try {
-            const policies = await retrievePolicies()
 
-            const result = searchClientPolicyById(id, queryId, clients, policies)
+        const policies = await retrievePolicies()
 
-            res.status(200).json(result)
-        } catch ({message}) {
-            return res.status(401).json(message)
-        }
+        const result = searchClientPolicyById(id, queryId, clients, policies)
+
+        res.status(200).json(result)
+
     } catch ({ message }) {
         return res.status(401).json(message)
     }

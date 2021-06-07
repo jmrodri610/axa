@@ -22,7 +22,7 @@ module.exports = function authenticateUser (username, password) {
         
         const { token, error, message } = response;
 
-        if(error) throw new     Error(`${error}: ${message}`)
+        if(error) throw new Error(`${error}: ${message}`)
         
         const payload = token.split('.')[1]
 

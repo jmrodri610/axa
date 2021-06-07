@@ -1,4 +1,5 @@
 const validate = require('../utils/validate');
+const { AuthenticationError } = require('../utils/errors')
 
 module.exports = searchClientInfo = (id, clients, policies, limit=10, name) => {
     validate.string(id, 'id');
@@ -7,7 +8,7 @@ module.exports = searchClientInfo = (id, clients, policies, limit=10, name) => {
     name && validate.string(name, 'name');
 
     const user = clients.find(client => client.id === id)
-    if (!user) throw Error('Unauthorized')
+    if (!user) throw new AuthenticationError('Unauthorized')
 
     if (user.role === 'admin') {
         if (name) {

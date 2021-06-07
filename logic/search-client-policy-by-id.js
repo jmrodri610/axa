@@ -1,4 +1,5 @@
 const validate = require('../utils/validate');
+const { AuthenticationError, ForbiddenError, NotFoundError } = require('../utils/errors')
 
 
 module.exports = searchClientPolicyById = (id, queryId, clients, policies) => {
@@ -8,11 +9,11 @@ module.exports = searchClientPolicyById = (id, queryId, clients, policies) => {
     validate.array(policies, 'policies');
 
     const user = clients.find(client => client.id === id)
-    if (!user) throw Error('Unauthorized')
+    if (!user) throw new AuthenticationError('Unauthorized')
 
     if (user.role === 'admin') {
         const requestedUser = clients.find(client => client.id === queryId)
-        if (!requestedUser) throw Error('Bad request')
+        if (!requestedUser) throw new NotFoundError('Bad request')
         requestedUser.policies = []
         policies.forEach(policy => {
             if (policy.clientId === requestedUser.id) requestedUser.policies.push({
@@ -27,7 +28,7 @@ module.exports = searchClientPolicyById = (id, queryId, clients, policies) => {
         return requestedUser.policies
 
     } else {
-        if (id !== queryId) throw Error('Unauthorized')
+        if (id !== queryId) throw new ForbiddenError('Forbidden')
 
         let _policies = []
         policies.forEach(policy => {
